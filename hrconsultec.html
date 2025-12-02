@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Consultec - Powered by Employee Nest</title>
+    <title>HR Consultec - World-Class HR Solutions | Powered by Employee Nest</title>
+    <meta name="description" content="Transform your business with HR Consultec - Expert HR consulting services powered by our proprietary Employee Nest platform. Streamline hiring, payroll, compliance, and employee management with AI-driven solutions.">
+    <meta name="keywords" content="HR consulting, HR solutions, employee management, payroll software, Employee Nest, HR technology">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%232563EB'/%3E%3Cg fill='white'%3E%3Ccircle cx='35' cy='35' r='8'/%3E%3Ccircle cx='50' cy='30' r='8'/%3E%3Ccircle cx='65' cy='35' r='8'/%3E%3Cpath d='M25 55 Q25 45 35 45 Q40 45 40 50 L40 70 L30 70 L30 50 Q30 48 25 55 Z'/%3E%3Cpath d='M42 50 Q42 45 50 45 Q55 45 55 50 L55 70 L45 70 L45 50 Z'/%3E%3Cpath d='M57 50 Q57 45 65 45 Q70 45 70 50 L70 70 L60 70 L60 50 Q60 48 57 50 Z'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%232563EB'/%3E%3Cg fill='white'%3E%3Ccircle cx='35' cy='35' r='8'/%3E%3Ccircle cx='50' cy='30' r='8'/%3E%3Ccircle cx='65' cy='35' r='8'/%3E%3Cpath d='M25 55 Q25 45 35 45 Q40 45 40 50 L40 70 L30 70 L30 50 Q30 48 25 55 Z'/%3E%3Cpath d='M42 50 Q42 45 50 45 Q55 45 55 50 L55 70 L45 70 L45 50 Z'/%3E%3Cpath d='M57 50 Q57 45 65 45 Q70 45 70 50 L70 70 L60 70 L60 50 Q60 48 57 50 Z'/%3E%3C/g%3E%3C/svg%3E">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -511,6 +518,103 @@
             .services-grid { grid-template-columns: repeat(4, 1fr); }
             .app-showcase-grid { grid-template-columns: repeat(4, 1fr); }
         }
+
+        /* --- Flip Cards --- */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 200px; /* Fixed height for consistency */
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: var(--radius-md);
+        }
+
+        .flip-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-front {
+            background-color: var(--bg-white);
+        }
+
+        .card-back {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--primary-light);
+        }
+        
+        .card-back p {
+            font-size: 0.9rem;
+            color: var(--text-body);
+            line-height: 1.5;
+        }
+
+        /* --- Animations --- */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Tooltips --- */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--text-main);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+            pointer-events: none;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -525,7 +629,6 @@
             
             <nav class="nav-links">
                 <a href="#homepage">Home</a>
-                <a href="#employeenest">Employee Nest</a>
                 <a href="#services">Services</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
@@ -539,7 +642,6 @@
         <div class="mobile-menu" id="mobile-menu">
             <div class="mobile-links">
                 <a href="#homepage">Home</a>
-                <a href="#employeenest">Employee Nest</a>
                 <a href="#services">Services</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
@@ -556,11 +658,11 @@
                 <p>We partner with growing organizations to build strong, productive, and engaged teams through state-of-the-art talent management processes and our proprietary platform.</p>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="#contact" class="btn btn-primary">Get Started</a>
-                    <a href="#employeenest" class="btn" style="background: white; border: 1px solid #E5E7EB;">Explore App</a>
+                
                 </div>
             </div>
-            <div class="hero-img-wrapper">
-                <img src="https://placehold.co/600x500/EFF6FF/2563EB?text=Employee+Nest+Dashboard" alt="HR Team" class="hero-img">
+            <div class="haaero-img-wrapper">
+                <img src="heroimage.png" alt="Employee Nest Dashboard - Modern HR Management Platform" class="hero-img">
             </div>
         </div>
     </section>
@@ -572,30 +674,74 @@
                 <h2 style="font-size: 1.5rem;">Why Companies Choose Us</h2>
             </div>
             <div class="features-grid">
-                <div class="feature-item">
-                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                    <h4>Integrated HR</h4>
-                    <p>SME Solutions</p>
+                <!-- Feature 1 -->
+                <div class="flip-card fade-in-up">
+                    <div class="card-inner">
+                        <div class="card-front" style="background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <div class="icon-box" data-tooltip="Integrated Solutions"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                            <h4>Integrated HR</h4>
+                            <p>SME Solutions</p>
+                        </div>
+                        <div class="card-back" style="background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <p>Seamlessly blend HR processes with your business goals for maximum efficiency.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-item">
-                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
-                    <h4>Productivity</h4>
-                    <p>Higher Engagement</p>
+                
+                <!-- Feature 2 -->
+                <div class="flip-card fade-in-up">
+                    <div class="card-inner">
+                        <div class="card-front" style="background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <div class="icon-box" data-tooltip="Boost Efficiency"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                            <h4>Productivity</h4>
+                            <p>Higher Engagement</p>
+                        </div>
+                        <div class="card-back" style="background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <p>Boost employee output with tools designed to reduce friction and enhance focus.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-item">
-                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                    <h4>Growth</h4>
-                    <p>Sustainable Profit</p>
+
+                <!-- Feature 3 -->
+                <div class="flip-card fade-in-up">
+                    <div class="card-inner">
+                        <div class="card-front" style="background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <div class="icon-box" data-tooltip="Scalable Growth"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                            <h4>Growth</h4>
+                            <p>Sustainable Profit</p>
+                        </div>
+                        <div class="card-back" style="background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <p>Scale your workforce confidently with systems that grow with you.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-item">
-                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></div>
-                    <h4>Expertise</h4>
-                    <p>Proven Talent</p>
+
+                <!-- Feature 4 -->
+                <div class="flip-card fade-in-up">
+                    <div class="card-inner">
+                        <div class="card-front" style="background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <div class="icon-box" data-tooltip="Expert Guidance"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></div>
+                            <h4>Expertise</h4>
+                            <p>Proven Talent</p>
+                        </div>
+                        <div class="card-back" style="background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <p>Leverage decades of HR experience distilled into actionable strategies.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-item" style="background: var(--bg-accent);">
-                    <div class="icon-box" style="background: white;"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg></div>
-                    <h4 class="text-primary">Employee Nest</h4>
-                    <p>In-House App</p>
+
+                <!-- Feature 5 -->
+                <div class="flip-card fade-in-up">
+                    <div class="card-inner">
+                        <div class="card-front" style="background: var(--bg-accent); background-image: linear-gradient(rgba(239,246,255,0.9), rgba(239,246,255,0.9)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <div class="icon-box" style="background: white;" data-tooltip="AI Powered App"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg></div>
+                            <h4 class="text-primary">Employee Nest</h4>
+                            <p>In-House App</p>
+                        </div>
+                        <div class="card-back" style="background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=60'); background-size: cover;">
+                            <p>Experience the future of HR management with our AI-driven platform.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -604,10 +750,10 @@
     <!-- NEW: Employee Nest Showcase -->
     <section id="employeenest" class="employee-nest">
         <div class="container">
-            <div class="text-center" style="max-width: 800px; margin: 0 auto;">
-                <span class="badge">Proprietary Technology</span>
+            <div class="text-center fade-in-up" style="max-width: 800px; margin: 0 auto;">
+                <span class="badge">AI Powered Technology</span>
                 <h2>Meet <span class="text-primary">Employee Nest</span></h2>
-                <p>Our in-house HR Management App designed to automate and streamline your employee operations, payroll, and compliance.</p>
+                <p><strong>Note:</strong> Employee Nest is a specialized software tool we provide as part of our comprehensive HR consultancy services. It is designed to automate and streamline your employee operations, payroll, and compliance.</p>
             </div>
             
             <div class="app-showcase-grid">
@@ -807,7 +953,7 @@
 
                 <!-- Form Side -->
                 <div class="contact-form-wrapper">
-                    <form>
+                    <form action="mailto:pranavvk16@gmail.com" method="post" enctype="text/plain">
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-input" placeholder="Your Name">
@@ -815,6 +961,10 @@
                         <div class="form-group">
                             <label>Work Email</label>
                             <input type="email" class="form-input" placeholder="name@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-input" placeholder="+1 (555) 000-0000">
                         </div>
                         <div class="form-group">
                             <label>Message</label>
@@ -847,6 +997,26 @@
         links.forEach(link => link.addEventListener('click', () => {
             mobileMenu.classList.remove('open');
         }));
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
