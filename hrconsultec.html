@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Consultec - Powered by Employee Nest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Modern CSS Variables --- */
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --primary-light: #EFF6FF; /* Blue-50 */
+            
+            --bg-white: #FFFFFF;
+            --bg-subtle: #FAFAFA; /* Very light gray for sections */
+            --bg-accent: #F8FAFC; /* Slate-50 */
+            
+            --text-main: #111827; /* Gray-900 */
+            --text-body: #4B5563; /* Gray-600 */
+            --text-muted: #9CA3AF; /* Gray-400 */
+            
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-pill: 9999px;
+            
+            /* Modern, subtle shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-primary: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Reset & Base --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        /* Typography Utilities */
+        h1, h2, h3, h4 {
+            color: var(--text-main);
+            line-height: 1.2;
+            letter-spacing: -0.025em; /* Tighter tracking for modern look */
+        }
+        
+        h1 { font-weight: 800; font-size: 2.75rem; }
+        h2 { font-weight: 700; font-size: 2.25rem; margin-bottom: 1rem; }
+        h3 { font-weight: 600; font-size: 1.25rem; }
+        
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+        .text-small { font-size: 0.875rem; color: var(--text-muted); }
+        
+        /* --- Components --- */
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 2.5rem;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Badge/Tag */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- Navigation (Glassmorphism) --- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            color: var(--text-main);
+        }
+        
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        .nav-links { display: none; }
+        
+        .nav-links a {
+            margin: 0 1.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-body);
+        }
+        
+        .nav-links a:hover { color: var(--primary); }
+        
+        .mobile-toggle {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding-top: 4rem;
+            padding-bottom: 6rem;
+            background: radial-gradient(circle at 100% 0%, #EFF6FF 0%, transparent 40%),
+                        radial-gradient(circle at 0% 100%, #FAFAFA 0%, transparent 40%);
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content { max-width: 600px; }
+        
+        .hero p {
+            font-size: 1.15rem;
+            margin: 1.5rem 0 2rem;
+            color: var(--text-body);
+        }
+
+        .hero-img-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero-img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: var(--radius-lg);
+            /* Soft floating animation */
+            animation: float 6s ease-in-out infinite; 
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- Features (Icons) --- */
+        .features { padding: 4rem 0; background-color: var(--bg-white); }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            background-color: var(--bg-accent);
+            transform: translateY(-5px);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .icon-box svg { width: 24px; height: 24px; }
+
+        .feature-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .feature-item p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* --- Employee Nest Section (Product Showcase) --- */
+        .employee-nest { background-color: #F0F6FF; } /* Slightly distinctive background */
+
+        .app-showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .app-feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: var(--transition);
+        }
+
+        .app-feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .app-feature-card h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
+        .app-feature-card ul { margin-top: 1rem; font-size: 0.9rem; color: var(--text-body); }
+        .app-feature-card li { margin-bottom: 0.5rem; padding-left: 1.2rem; position: relative; }
+        .app-feature-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+
+        /* --- About Section (Clean) --- */
+        .about { background-color: var(--bg-subtle); }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        .about-text p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+        
+        .vision-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .vision-box h3 { color: var(--primary); margin-bottom: 0.5rem; }
+        .vision-box p { font-size: 0.95rem; }
+        .vision-divider { height: 1px; background: #E5E7EB; margin: 2rem 0; }
+
+        /* --- Services (Minimal Cards) --- */
+        .services { background-color: var(--bg-white); }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Minimal Card Style */
+        .card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            height: 100%;
+        }
+
+        .card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h3 { margin: 1rem 0 0.5rem; }
+        .card p { font-size: 0.95rem; color: var(--text-body); }
+        
+        /* Detailed List - Two Columns */
+        .service-list-container {
+            margin-top: 5rem;
+            padding-top: 4rem;
+            border-top: 1px solid #F3F4F6;
+        }
+        
+        .service-list-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .check-list li {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-body);
+        }
+        
+        .check-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+            flex-shrink: 0;
+        }
+
+        /* --- Differentiators (Clean Grid) --- */
+        .diff-section { background-color: var(--bg-accent); }
+        
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .diff-item {
+            background: transparent;
+            padding: 1.5rem;
+            border-left: 3px solid var(--primary); /* Minimal accent */
+        }
+
+        .diff-item h3 { margin-bottom: 1rem; }
+
+        /* --- Contact --- */
+        .contact { background-color: var(--bg-white); }
+        
+        .contact-wrapper {
+            background-color: var(--primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-info {
+            padding: 3rem 2rem;
+            color: white;
+        }
+        
+        .contact-info h2 { color: white; margin-bottom: 2rem; }
+        
+        .contact-detail {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        
+        .contact-detail svg { width: 20px; height: 20px; margin-right: 1rem; opacity: 0.8; }
+        .contact-detail p, .contact-detail a { color: rgba(255,255,255,0.9); font-weight: 500; }
+        .contact-detail h4 { color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; margin-right: 1rem; width: 60px; }
+
+        .contact-form-wrapper {
+            background-color: white;
+            padding: 3rem 2rem;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid #F3F4F6;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Mobile Menu --- */
+        .mobile-menu {
+            position: fixed;
+            top: 81px;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 1rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-150%);
+            transition: transform 0.3s ease;
+            z-index: 90;
+        }
+        .mobile-menu.open { transform: translateY(0); }
+        
+        .mobile-links a {
+            display: block;
+            padding: 1rem;
+            border-bottom: 1px solid #F3F4F6;
+            font-weight: 600;
+        }
+
+        /* --- Responsive Breakpoints --- */
+        @media (min-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            section { padding: 8rem 0; }
+            
+            .mobile-toggle { display: none; }
+            .nav-links { display: flex; }
+            
+            .hero-layout { grid-template-columns: 1.2fr 0.8fr; gap: 4rem; }
+            
+            .features-grid { grid-template-columns: repeat(5, 1fr); }
+
+            .app-showcase-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .about-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+            
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .service-list-grid { grid-template-columns: repeat(3, 1fr); }
+            
+            .diff-grid { grid-template-columns: repeat(3, 1fr); }
+            
+            .contact-wrapper { grid-template-columns: 1fr 1.5fr; }
+        }
+        
+        @media (min-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(4, 1fr); }
+            .app-showcase-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+                HR Consultec
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#homepage">Home</a>
+                <a href="#employeenest">Employee Nest</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <button class="mobile-toggle" id="menu-btn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-links">
+                <a href="#homepage">Home</a>
+                <a href="#employeenest">Employee Nest</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="homepage" class="hero">
+        <div class="container hero-layout">
+            <div class="hero-content">
+                <span class="badge">Powered by Employee Nest</span>
+                <h1>Empowering Business with <span class="text-primary">World-Class HR</span></h1>
+                <p>We partner with growing organizations to build strong, productive, and engaged teams through state-of-the-art talent management processes and our proprietary platform.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                    <a href="#employeenest" class="btn" style="background: white; border: 1px solid #E5E7EB;">Explore App</a>
+                </div>
+            </div>
+            <div class="hero-img-wrapper">
+                <img src="https://placehold.co/600x500/EFF6FF/2563EB?text=Employee+Nest+Dashboard" alt="HR Team" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Features -->
+    <section class="features">
+        <div class="container">
+            <div class="text-center">
+                <h2 style="font-size: 1.5rem;">Why Companies Choose Us</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    <h4>Integrated HR</h4>
+                    <p>SME Solutions</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                    <h4>Productivity</h4>
+                    <p>Higher Engagement</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    <h4>Growth</h4>
+                    <p>Sustainable Profit</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></div>
+                    <h4>Expertise</h4>
+                    <p>Proven Talent</p>
+                </div>
+                <div class="feature-item" style="background: var(--bg-accent);">
+                    <div class="icon-box" style="background: white;"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg></div>
+                    <h4 class="text-primary">Employee Nest</h4>
+                    <p>In-House App</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Employee Nest Showcase -->
+    <section id="employeenest" class="employee-nest">
+        <div class="container">
+            <div class="text-center" style="max-width: 800px; margin: 0 auto;">
+                <span class="badge">Proprietary Technology</span>
+                <h2>Meet <span class="text-primary">Employee Nest</span></h2>
+                <p>Our in-house HR Management App designed to automate and streamline your employee operations, payroll, and compliance.</p>
+            </div>
+            
+            <div class="app-showcase-grid">
+                <!-- App Feature 1 -->
+                <div class="app-feature-card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M17 20h5v-5a2 2 0 00-2-2h-2a2 2 0 00-2 2v5zM9 20h5v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5zM5 20h2v-5a2 2 0 00-2-2H5a2 2 0 00-2 2v5h2zM21 15.5H3M12 4a3 3 0 110 6 3 3 0 010-6z"></path></svg></div>
+                    <h3>Employee Management</h3>
+                    <ul>
+                        <li>Onboarding & Profiles</li>
+                        <li>Document Uploads</li>
+                        <li>Department Structures</li>
+                        <li>Status Tracking</li>
+                    </ul>
+                </div>
+
+                <!-- App Feature 2 -->
+                <div class="app-feature-card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    <h3>Smart Attendance</h3>
+                    <ul>
+                        <li>Track Work Hours</li>
+                        <li>Leave Management</li>
+                        <li>Holiday Calendars</li>
+                        <li>Real-time Records</li>
+                    </ul>
+                </div>
+
+                <!-- App Feature 3 -->
+                <div class="app-feature-card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg></div>
+                    <h3>Payroll Engine</h3>
+                    <ul>
+                        <li>Auto-Generate Payslips</li>
+                        <li>Salary Structures</li>
+                        <li>Tax (TDS) Calculation</li>
+                        <li>Bank Integration</li>
+                    </ul>
+                </div>
+
+                <!-- App Feature 4 -->
+                <div class="app-feature-card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                    <h3>Statutory Compliance</h3>
+                    <ul>
+                        <li>PF & ESI Tracking</li>
+                        <li>Compliance Reports</li>
+                        <li>Deduction Management</li>
+                        <li>Audit Ready Data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Core Services</h2>
+                <p>Integrated HR solutions powered by <strong>Employee Nest</strong> to ensure operational clarity and efficiency.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M12 21h.01"></path></svg></div>
+                    <h3>HR Policy Making</h3>
+                    <p>Establishing professional policies based on industry standards for operational clarity.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    <h3>Payroll Management</h3>
+                    <p>End-to-end administration using Employee Nest for accuracy, timeliness, and compliance.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                    <h3>Statutory Compliance</h3>
+                    <p>Navigating legislation, reducing risk, and managing PF/ESI filing via our platform.</p>
+                </div>
+                <!-- Service 4 -->
+                <div class="card">
+                    <div class="icon-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>
+                    <h3>Performance Mgmt</h3>
+                    <p>Structuring appraisals, bonuses, and reviews to drive excellence and accountability.</p>
+                </div>
+            </div>
+
+            <div class="service-list-container">
+                <h3 class="text-center" style="margin-bottom: 2rem;">Full Lifecycle Support</h3>
+                <div class="service-list-grid check-list">
+                    <ul>
+                        <li>Recruitment & Onboarding</li>
+                        <li>Employee Exit Management</li>
+                        <li>KPI and KRA Setting</li>
+                        <li>Performance Appraisals</li>
+                    </ul>
+                    <ul>
+                        <li>Training & Development</li>
+                        <li>PF & ESI Registration</li>
+                        <li>Organogram Creation</li>
+                        <li>Job Description Development</li>
+                    </ul>
+                    <ul>
+                        <li>Compensation Structuring</li>
+                        <li>WPS Support</li>
+                        <li>Minimum Wages Advisory</li>
+                        <li>Antecedent Verification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container about-grid">
+            <div class="about-text">
+                <span class="badge" style="background:white;">About Us</span>
+                <h2>Strategic Value for Your Organization</h2>
+                <p>We are a team of seasoned HR specialists going beyond traditional recruitment. We design, structure, and implement tailored HR systems that enable smooth operations, allowing you to focus on your core business.</p>
+                <p>A key differentiator is <strong>Employee Nest</strong>, our proprietary in-house HR software, built to streamline workforce management and support the full employee lifecycle.</p>
+            </div>
+            <div class="vision-box">
+                <h3>Our Vision</h3>
+                <p>To empower small and medium enterprises with globally benchmarked HR solutions that develop talent, inspire engagement, and enable sustainable profitability.</p>
+                
+                <div class="vision-divider"></div>
+                
+                <h3>Our Mission</h3>
+                <p>Deliver high-quality HR services that are timely, cost-effective, and rooted in ethical practice and complete confidentiality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiators -->
+    <section class="diff-section">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2>The <span class="text-primary">Consultec</span> Difference</h2>
+            </div>
+            <div class="diff-grid">
+                <div class="diff-item">
+                    <h3>Core Principles</h3>
+                    <ul class="check-list">
+                        <li>End-to-End HR Partner</li>
+                        <li>Tailor-Made for SMEs</li>
+                        <li>Long-Term Partnership</li>
+                    </ul>
+                </div>
+                <div class="diff-item">
+                    <h3>Technology</h3>
+                    <ul class="check-list">
+                        <li><strong>Employee Nest Platform</strong></li>
+                        <li>Real Business Insight</li>
+                        <li>Result-Driven Focus</li>
+                    </ul>
+                </div>
+                <div class="diff-item">
+                    <h3>Reliability</h3>
+                    <ul class="check-list">
+                        <li>Transparent Processes</li>
+                        <li>Complete Confidentiality</li>
+                        <li>Stress-free Compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <!-- Contact Info Side -->
+                <div class="contact-info">
+                    <h2>Let's build your thriving team.</h2>
+                    
+                    <div class="contact-detail">
+                        <h4>Email</h4>
+                        <a href="mailto:crm@hrconsultec.com">crm@hrconsultec.com</a>
+                    </div>
+                    <div class="contact-detail">
+                        <h4>Web</h4>
+                        <a href="#">www.hrconsultec.com</a>
+                    </div>
+                    <div class="contact-detail" style="align-items: flex-start;">
+                        <h4>Office</h4>
+                        <p style="font-weight: 400; max-width: 200px;">
+                            29/848, ABC complex,<br>
+                            Pottammal-Palazhi Road<br>
+                            Kozhikode, PIN 673016
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Form Side -->
+                <div class="contact-form-wrapper">
+                    <form>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-input" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Work Email</label>
+                            <input type="email" class="form-input" placeholder="name@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="4" class="form-input" placeholder="How can we help?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 HR Consultec. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-links a');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        links.forEach(link => link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        }));
+    </script>
+</body>
+</html>
