@@ -14,16 +14,16 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="header">
+    <header className="header" role="banner">
       <div className="container nav-container">
         {/* Logo */}
-        <a href="#" className="logo">
-          <Hexagon />
+        <a href="#homepage" className="logo" aria-label="HR Consultec - Home">
+          <Hexagon aria-hidden="true" />
           HR Consultec
         </a>
 
         {/* Desktop Nav */}
-        <nav className="nav-links">
+        <nav className="nav-links" aria-label="Main navigation">
           {navLinks.map((link) => (
             <a key={link.name} href={link.href}>
               {link.name}
@@ -35,14 +35,21 @@ const Header: React.FC = () => {
         <button
           className="mobile-toggle"
           onClick={toggleMenu}
-          aria-label="Toggle Menu"
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`} id="mobile-menu">
+      <div
+        className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}
+        id="mobile-menu"
+        role="navigation"
+        aria-label="Mobile navigation"
+      >
         <div className="mobile-links">
           {navLinks.map((link) => (
             <a
