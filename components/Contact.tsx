@@ -41,7 +41,7 @@ const Contact: React.FC = () => {
 
           <div className="contact-form-wrapper">
             <form
-              action="mailto:pranavvk16@gmail.com"
+              action="mailto:crm@hrconsultec.com"
               method="post"
               encType="text/plain"
               aria-label="Contact form"

@@ -18,8 +18,9 @@ const Header: React.FC = () => {
       <div className="container nav-container">
         {/* Logo */}
         <a href="#homepage" className="logo" aria-label="HR Consultec - Home">
-          <Hexagon aria-hidden="true" />
-          HR Consultec
+          <div className="logo-wrapper">
+            <img src="/logo png-01.png" alt="HR Consultec Logo" className="logo-img" />
+          </div>
         </a>
 
         {/* Desktop Nav */}
