@@ -27,11 +27,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, subtitle, description,
   return (
     <div
       className={`flip-card fade-in-up ${isFlipped ? 'flipped' : ''}`}
-      onClick={handleCardClick}
-      onKeyPress={handleKeyPress}
-      role="button"
-      tabIndex={0}
-      aria-label={`${title}: ${isFlipped ? description : subtitle}. Click to flip card.`}
     >
       <div className="card-inner">
 
@@ -80,6 +75,14 @@ const Features: React.FC = () => {
 
         <div className="features-grid" role="list">
           <FeatureCard
+            title="Employee Nest"
+            subtitle="In-House App"
+            description="Experience the future of HR management with our AI-driven platform."
+            image="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=60"
+            icon={<Cpu aria-hidden="true" />}
+            isAccent={true}
+          />
+          <FeatureCard
             title="Integrated HR"
             subtitle="SME Solutions"
             description="Seamlessly blend HR processes with your business goals for maximum efficiency."
@@ -106,14 +109,6 @@ const Features: React.FC = () => {
             description="Leverage decades of HR experience distilled into actionable strategies."
             image="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=60"
             icon={<Award aria-hidden="true" />}
-          />
-          <FeatureCard
-            title="Employee Nest"
-            subtitle="In-House App"
-            description="Experience the future of HR management with our AI-driven platform."
-            image="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=60"
-            icon={<Cpu aria-hidden="true" />}
-            isAccent={true}
           />
         </div>
       </div>

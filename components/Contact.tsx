@@ -41,15 +41,26 @@ const Contact: React.FC = () => {
 
           <div className="contact-form-wrapper">
             <form
-              action="mailto:crmhrctec@gmail.com"
-              method="post"
-              encType="text/plain"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+                const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+                const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
+                const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+
+                const subject = `Contact Request from ${name}`;
+                const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+
+                window.location.href = `mailto:crmhrctec@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+              }}
               aria-label="Contact form"
             >
               <div className="form-group">
                 <label htmlFor="contact-name">Name</label>
                 <input
                   id="contact-name"
+                  name="name"
                   type="text"
                   placeholder="Your Name"
                   className="form-input"
@@ -62,6 +73,7 @@ const Contact: React.FC = () => {
                 <label htmlFor="contact-email">Work Email</label>
                 <input
                   id="contact-email"
+                  name="email"
                   type="email"
                   placeholder="name@company.com"
                   className="form-input"
@@ -74,6 +86,7 @@ const Contact: React.FC = () => {
                 <label htmlFor="contact-phone">Phone Number</label>
                 <input
                   id="contact-phone"
+                  name="phone"
                   type="tel"
                   placeholder="+1 (555) 000-0000"
                   className="form-input"
@@ -84,6 +97,7 @@ const Contact: React.FC = () => {
                 <label htmlFor="contact-message">Message</label>
                 <textarea
                   id="contact-message"
+                  name="message"
                   rows={4}
                   placeholder="How can we help?"
                   className="form-input"
