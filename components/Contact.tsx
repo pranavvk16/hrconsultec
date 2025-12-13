@@ -14,7 +14,7 @@ const Contact: React.FC = () => {
               <Mail aria-hidden="true" />
               <div>
                 <h4>Email</h4>
-                <a href="mailto:crm@hrconsultec.com" aria-label="Email us at crm@hrconsultec.com">crm@hrconsultec.com</a>
+                <a href="mailto:crmhrctec@gmail.com" aria-label="Email us at crmhrctec@gmail.com">crmhrctec@gmail.com</a>
               </div>
             </div>
 
@@ -41,7 +41,7 @@ const Contact: React.FC = () => {
 
           <div className="contact-form-wrapper">
             <form
-              action="mailto:crm@hrconsultec.com"
+              action="mailto:crmhrctec@gmail.com"
               method="post"
               encType="text/plain"
               aria-label="Contact form"
